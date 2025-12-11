@@ -1,0 +1,64 @@
+.spaceBackground
+  position: absolute
+  inset: 0
+  z-index: 0
+  pointer-events: none
+  overflow: hidden
+
+.planet
+  position: absolute
+  border-radius: 50%
+  opacity: 0.16
+  filter: blur(0.7px)
+  animation: floatRandom linear infinite alternate
+  mix-blend-mode: screen
+
+.purple
+  background: radial-gradient(circle at 30% 30%, #e8d5ff, #7f5af0)
+
+.blue
+  background: radial-gradient(circle at 30% 30%, #d5f3ff, #3fa9f5)
+
+.pink
+  background: radial-gradient(circle at 30% 30%, #ffd9f2, #ff75c3)
+
+.orange
+  background: radial-gradient(circle at 30% 30%, #ffe7c7, #ff8e4e)
+
+.cyan
+  background: radial-gradient(circle at 30% 30%, #d3fff8, #00e0ff)
+
+
+@keyframes floatRandom
+  0%
+    transform: translate(0, 0)
+  25%
+    transform: translate(-10vw, -5vh)
+  50%
+    transform: translate(15vw, 10vh)
+  75%
+    transform: translate(-5vw, 15vh)
+  100%
+    transform: translate(10vw, -10vh)
+
+.star
+  position: absolute
+  border-radius: 50%
+  background: radial-gradient(circle, #ffffff, #a7b3ff)
+  opacity: 0.5
+  filter: blur(0.3px)
+  animation-name: twinkle
+  animation-timing-function: ease-in-out
+  animation-iteration-count: infinite
+  animation-direction: alternate
+
+@keyframes twinkle
+  0%
+    opacity: 0.1
+    transform: scale(0.9)
+  50%
+    opacity: 0.8
+    transform: scale(1.2)
+  100%
+    opacity: 0.3
+    transform: scale(1)

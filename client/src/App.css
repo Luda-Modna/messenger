@@ -89,7 +89,23 @@ body {
   display: flex;    
   flex-direction: column;
   justify-content: flex-end;
+  position: relative;
 }
+
+.chat-messages-content {
+  position: relative;
+  z-index: 1;
+}
+
+.space-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none; 
+}
+
+
 
 .message-list {
   list-style: none;

@@ -5,6 +5,7 @@ import './App.css';
 import { ws } from './api';
 import MessageList from './components/MessageList';
 import MessageForm from './components/MessageForm';
+import PlanetBackground from './components/PlanetBackground';
 
 function App ({ messages, isFetching, error, limit, get }) {
   useEffect(() => {
@@ -42,15 +43,22 @@ function App ({ messages, isFetching, error, limit, get }) {
         {error && (
           <div className='chat-status chat-status--error'>ERROR!!!</div>
         )}
-        {isFetching && <div className='chat-status'>Messages is loading. Please, wait...</div>}
+        {isFetching && (
+          <div className='chat-status'>
+            Messages is loading. Please, wait...
+          </div>
+        )}
         {!isFetching && !error && (
           <main className='chat-main'>
             <section className='chat-messages'>
-              <MessageList
-                messages={messages}
-                onEdit={handleEditMessage}
-                onDelete={handleDeleteMessage}
-              />
+              <PlanetBackground />
+              <div className='chat-messages-content'>
+                <MessageList
+                  messages={messages}
+                  onEdit={handleEditMessage}
+                  onDelete={handleDeleteMessage}
+                />
+              </div>
             </section>
             <section className='chat-input'>
               <MessageForm onSubmit={addMessage} />
