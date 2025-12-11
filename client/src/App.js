@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { getMessagesThunk } from './store/slices/messagesSlice';
 import './App.css';
 import { ws } from './api';
+import MessageList from './components/MessageList';
+import MessageForm from './components/MessageForm';
 
 function App ({ messages, isFetching, error, limit, get }) {
   useEffect(() => {
@@ -11,7 +13,6 @@ function App ({ messages, isFetching, error, limit, get }) {
   }, [limit]);
 
   useLayoutEffect(() => {
-    // window.scrollTo(0, document.body.scrollHeight);
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: 'smooth',
@@ -23,26 +24,26 @@ function App ({ messages, isFetching, error, limit, get }) {
     formikBag.resetForm();
   };
 
+  const handleEditMessage = (id, body) => {
+    ws.editMessage({ messageId: id, body });
+  };
+
+  const handleDeleteMessage = id => {
+    ws.deleteMessage(id);
+  };
+
   return (
     <>
       {error && <div style={{ color: 'red' }}>ERROR!!!</div>}
       {isFetching && <div>Messages is loading. Please, wait...</div>}
       {!isFetching && !error && (
-        <ol>
-          {messages.map(m => (
-            <li key={m._id}>{JSON.stringify(m)}</li>
-          ))}
-        </ol>
+        <MessageList
+          messages={messages}
+          onEdit={handleEditMessage}
+          onDelete={handleDeleteMessage}
+        />
       )}
-      <hr />
-      <Formik initialValues={{ body: '' }} onSubmit={addMessage}>
-        {formikProps => (
-          <Form>
-            <Field name='body'></Field>
-            <button type='submit'>Send</button>
-          </Form>
-        )}
-      </Formik>
+      <MessageForm onSubmit={addMessage} />
     </>
   );
 }
