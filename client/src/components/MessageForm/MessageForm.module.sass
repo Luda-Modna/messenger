@@ -1,0 +1,42 @@
+.form
+  display: flex
+  gap: 10px
+  padding: 10px 16px
+  background: radial-gradient(circle at top, rgba(81, 71, 183, 0.4), transparent)
+  border-top: 1px solid rgba(255, 255, 255, 0.06)
+
+.input
+  flex: 1
+  border-radius: 999px
+  border: 1px solid rgba(151, 173, 255, 0.7)
+  background: rgba(7, 8, 29, 0.9)
+  padding: 10px 14px
+  font-size: 15px
+  color: #f4f4ff
+  outline: none
+  transition: box-shadow .2s ease, border-color .2s ease
+
+  &::placeholder
+    color: rgba(181, 191, 255, 0.6)
+
+  &:focus
+    border-color: #7f5af0
+    box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.7)
+
+/* Кнопка SEND */
+.btnSend
+  border: none
+  border-radius: 999px
+  padding: 10px 18px
+  background: linear-gradient(135deg, #7f5af0, #9f7bff)
+  color: #fff
+  cursor: pointer
+  font-weight: 600
+  font-size: 14px
+  letter-spacing: .5px
+  box-shadow: 0 0 12px rgba(127, 90, 240, 0.4)
+  transition: transform .15s ease, box-shadow .15s ease
+
+  &:hover
+    transform: translateY(-1px)
+    box-shadow: 0 0 16px rgba(127, 90, 240, 0.7)

@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect } from 'react';
-import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
 import { getMessagesThunk } from './store/slices/messagesSlice';
 import './App.css';
@@ -33,18 +32,33 @@ function App ({ messages, isFetching, error, limit, get }) {
   };
 
   return (
-    <>
-      {error && <div style={{ color: 'red' }}>ERROR!!!</div>}
-      {isFetching && <div>Messages is loading. Please, wait...</div>}
-      {!isFetching && !error && (
-        <MessageList
-          messages={messages}
-          onEdit={handleEditMessage}
-          onDelete={handleDeleteMessage}
-        />
-      )}
-      <MessageForm onSubmit={addMessage} />
-    </>
+    <div className='chat-app'>
+      <div className='chat-wrapper'>
+        <header className='chat-header'>
+          <h1>Chat Space</h1>
+          <p>Your galactic chat</p>
+        </header>
+
+        {error && (
+          <div className='chat-status chat-status--error'>ERROR!!!</div>
+        )}
+        {isFetching && <div className='chat-status'>Messages is loading. Please, wait...</div>}
+        {!isFetching && !error && (
+          <main className='chat-main'>
+            <section className='chat-messages'>
+              <MessageList
+                messages={messages}
+                onEdit={handleEditMessage}
+                onDelete={handleDeleteMessage}
+              />
+            </section>
+            <section className='chat-input'>
+              <MessageForm onSubmit={addMessage} />
+            </section>
+          </main>
+        )}
+      </div>
+    </div>
   );
 }
 

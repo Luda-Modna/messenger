@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(
+    circle at top,
+    #2f2b6e 0,
+    #050518 45%,
+    #000000 100%
+  );
+  color: #f4f4ff;
+  min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.chat-app {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+.chat-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(9, 9, 26, 0.9);
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(92, 92, 255, 0.35), 0 0 80px rgba(169, 64, 255, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-header {
+  padding: 16px 20px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    120deg,
+    rgba(117, 63, 255, 0.4),
+    rgba(8, 18, 64, 0.9)
+  );
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chat-header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.chat-status {
+  padding: 10px 16px;
+  font-size: 14px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.chat-status--error {
+  color: #ff8b9a;
+  background: rgba(255, 76, 106, 0.1);
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  flex: 1;
+  min-height: 0;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px 16px 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7f5af0 transparent;
+  display: flex;    
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;  
+}
+
+.chat-input {
+  padding: 8px 16px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(
+    circle at top,
+    rgba(81, 71, 183, 0.4),
+    transparent
+  );
 }

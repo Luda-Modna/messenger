@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import styles from './MessageItem.module.sass';
 
 function MessageItem ({ message, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,32 +27,60 @@ function MessageItem ({ message, onEdit, onDelete }) {
     onDelete(message._id);
   };
   return (
-    <li>
-      {!isEditing ? (
-        <p>{message.body ?? JSON.stringify(message)}</p>
-      ) : (
-        <input
-          type='text'
-          value={draftBody}
-          onChange={e => setDraftBody(e.target.value)}
-        />
-      )}
-      <div>
+    <li
+      className={
+        isEditing
+          ? `${styles.messageItem} ${styles.messageItemEditing}`
+          : styles.messageItem
+      }
+    >
+      <div className={styles.messageBubble}>
+        {!isEditing ? (
+          <p className={styles.messageBody}>
+            {message.body ?? JSON.stringify(message)}
+          </p>
+        ) : (
+          <input
+            className={styles.editInput}
+            type='text'
+            value={draftBody}
+            onChange={e => setDraftBody(e.target.value)}
+          />
+        )}
+      </div>
+
+      <div className={styles.messageActions}>
         {isEditing ? (
           <>
-            <button type='button' onClick={handleSaveEdit}>
+            <button
+              className={styles.btnSave}
+              type='button'
+              onClick={handleSaveEdit}
+            >
               Save
             </button>
-            <button type='button' onClick={handleCancelEdit}>
+            <button
+              className={styles.btnCancel}
+              type='button'
+              onClick={handleCancelEdit}
+            >
               Cancel
             </button>
           </>
         ) : (
           <>
-            <button type='button' onClick={handleStartEdit}>
+            <button
+              className={styles.btnEdit}
+              type='button'
+              onClick={handleStartEdit}
+            >
               Edit
             </button>
-            <button type='button' onClick={handleDelete}>
+            <button
+              className={styles.btnDelete}
+              type='button'
+              onClick={handleDelete}
+            >
               Delete
             </button>
           </>

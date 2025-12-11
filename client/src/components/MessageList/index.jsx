@@ -1,9 +1,10 @@
 import React from 'react';
 import MessageItem from '../MessageItem';
+import styles from './MessageList.module.sass';
 
 function MessageList ({ messages, onEdit, onDelete }) {
   return (
-    <ol>
+    <ol className={styles.messagelist}>
       {messages.map(m => (
         <MessageItem
           key={m._id}
