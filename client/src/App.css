@@ -45,6 +45,39 @@ body {
     rgba(117, 63, 255, 0.4),
     rgba(8, 18, 64, 0.9)
   );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chat-header-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.universe-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff8ac4, #9f7bff);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(200, 120, 255, 0.7);
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.universe-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(220, 140, 255, 0.9);
+  filter: brightness(1.05);
+}
+
+.chat-status--success {
+  color: #c7ffdd;
+  background: rgba(76, 209, 149, 0.15);
 }
 
 .chat-header h1 {
@@ -86,7 +119,7 @@ body {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #7f5af0 transparent;
-  display: flex;    
+  display: flex;
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
@@ -102,10 +135,8 @@ body {
   inset: 0;
   overflow: hidden;
   z-index: 0;
-  pointer-events: none; 
+  pointer-events: none;
 }
-
-
 
 .message-list {
   list-style: none;
@@ -114,7 +145,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: auto;  
+  margin-top: auto;
 }
 
 .chat-input {

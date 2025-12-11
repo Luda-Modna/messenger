@@ -32,6 +32,8 @@ const initialState = {
   isFetching: false,
   error: null,
   limit: 10,
+  room: 'general',
+  roomNotification: null,
 };
 
 const messagesSlice = createSlice({
@@ -61,6 +63,15 @@ const messagesSlice = createSlice({
     },
     deleteMessageError: (state, { payload }) => {
       state.error = payload;
+    },
+    joinRoomSuccess: (state, { payload }) => {
+      state.room = payload.room;
+      state.roomNotification = `Welcome to the universe "${payload.room}"`;
+      state.error = null;
+    },
+    joinRoomError: (state, { payload }) => {
+      state.roomNotification = null;
+      state.error = payload?.error || 'НError';
     },
   },
   extraReducers: builder => {
@@ -106,6 +117,8 @@ export const {
   editMessageSuccess,
   deleteMessageError,
   deleteMessageSuccess,
+  joinRoomSuccess,
+  joinRoomError,
 } = actions;
 
 export default reducer;

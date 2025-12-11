@@ -9,6 +9,11 @@ const messageSchema = new Schema(
       match: /^.*\S.*$/,
       minLength: 1,
     },
+    room: {
+      type: String,
+      default: 'general',
+      index: true,
+    },
   },
   { timestamps: true }
 );

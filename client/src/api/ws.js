@@ -4,6 +4,9 @@ import {
   deleteMessageSuccess,
   editMessageError,
   editMessageSuccess,
+  getMessagesThunk,
+  joinRoomError,
+  joinRoomSuccess,
   newMessageError,
   newMessageSuccess,
 } from '../store/slices/messagesSlice';
@@ -20,6 +23,9 @@ const {
     DELETE_MESSAGE,
     DELETE_MESSAGE_ERROR,
     DELETE_MESSAGE_SUCCESS,
+    JOIN_ROOM,
+    JOIN_ROOM_SUCCESS,
+    JOIN_ROOM_ERROR,
   },
 } = CONSTANTS;
 
@@ -31,6 +37,8 @@ export const editMessage = payload => socket.emit(EDIT_MESSAGE, payload);
 
 export const deleteMessage = id =>
   socket.emit(DELETE_MESSAGE, { messageId: id });
+
+export const joinRoom = roomName => socket.emit(JOIN_ROOM, { room: roomName });
 
 export const bringStoreToSocket = store => {
   socket.on(NEW_MESSAGE_SUCCESS, payload => {
@@ -55,5 +63,17 @@ export const bringStoreToSocket = store => {
   socket.on(DELETE_MESSAGE_ERROR, error => {
     console.log('DELETE_MESSAGE_ERROR', error);
     store.dispatch(deleteMessageError(error));
+  });
+
+  socket.on(JOIN_ROOM_SUCCESS, payload => {
+    store.dispatch(joinRoomSuccess(payload));
+    const state = store.getState();
+    const limit = state.chat.limit || 10;
+
+    store.dispatch(getMessagesThunk({ limit, room: payload.room }));
+  });
+
+  socket.on(JOIN_ROOM_ERROR, error => {
+    store.dispatch(joinRoomError(error));
   });
 };

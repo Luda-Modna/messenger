@@ -7,38 +7,71 @@ import MessageList from './components/MessageList';
 import MessageForm from './components/MessageForm';
 import PlanetBackground from './components/PlanetBackground';
 
-function App ({ messages, isFetching, error, limit, get }) {
+const OTHER_UNIVERSE = 'other_universe';
+
+function App ({
+  messages,
+  isFetching,
+  error,
+  limit,
+  get,
+  room,
+  roomNotification,
+}) {
   useEffect(() => {
     get(limit);
-  }, [limit]);
+  }, [limit, get]);
 
   useLayoutEffect(() => {
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: 'smooth',
     });
-  }, [messages.length]);
+  }, [messages.length, room]);
 
   const addMessage = (values, formikBag) => {
-    ws.createMessage(values);
+    ws.createMessage({ ...values, room });
     formikBag.resetForm();
   };
 
   const handleEditMessage = (id, body) => {
-    ws.editMessage({ messageId: id, body });
+    ws.editMessage({ messageId: id, body, room });
   };
 
   const handleDeleteMessage = id => {
     ws.deleteMessage(id);
   };
 
+  const handleToggleUniverse = () => {
+    const targetRoom = room === 'general' ? OTHER_UNIVERSE : 'general';
+    ws.joinRoom(targetRoom);
+  };
+
+  const visibleMessages = messages.filter(m => m.room === room);
+
   return (
     <div className='chat-app'>
       <div className='chat-wrapper'>
         <header className='chat-header'>
-          <h1>Chat Space</h1>
-          <p>Your galactic chat</p>
+          <div className='chat-header-main'>
+            <h1>Chat Space</h1>
+            <p>Your galactic chat</p>
+          </div>
+
+          <button
+            type='button'
+            className='universe-btn'
+            onClick={handleToggleUniverse}
+          >
+            {room === 'general' ? 'Join another universe' : 'Go back'}
+          </button>
         </header>
+
+        {roomNotification && (
+          <div className='chat-status chat-status--success'>
+            {roomNotification}
+          </div>
+        )}
 
         {error && (
           <div className='chat-status chat-status--error'>ERROR!!!</div>
@@ -54,7 +87,7 @@ function App ({ messages, isFetching, error, limit, get }) {
               <PlanetBackground />
               <div className='chat-messages-content'>
                 <MessageList
-                  messages={messages}
+                  messages={visibleMessages}
                   onEdit={handleEditMessage}
                   onDelete={handleDeleteMessage}
                 />
