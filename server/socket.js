@@ -29,11 +29,11 @@ const initSocket = httpServer => {
       }
     });
 
-    socket.on(EDIT_MESSAGE, async ({ messageId, text }) => {
+    socket.on(EDIT_MESSAGE, async ({ messageId, body }) => {
       try {
         const updatedMessage = await Message.findByIdAndUpdate(
           messageId,
-          { text },
+          { body },
           { new: true }
         );
 

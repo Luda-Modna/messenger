@@ -29,7 +29,8 @@ export const createMessage = payload => socket.emit(NEW_MESSAGE, payload);
 
 export const editMessage = payload => socket.emit(EDIT_MESSAGE, payload);
 
-export const deleteMessage = payload => socket.emit(DELETE_MESSAGE, payload);
+export const deleteMessage = id =>
+  socket.emit(DELETE_MESSAGE, { messageId: id });
 
 export const bringStoreToSocket = store => {
   socket.on(NEW_MESSAGE_SUCCESS, payload => {
@@ -48,9 +49,11 @@ export const bringStoreToSocket = store => {
   });
 
   socket.on(DELETE_MESSAGE_SUCCESS, payload => {
+    console.log('DELETE_MESSAGE_SUCCESS payload:', payload);
     store.dispatch(deleteMessageSuccess(payload));
   });
   socket.on(DELETE_MESSAGE_ERROR, error => {
+    console.log('DELETE_MESSAGE_ERROR', error);
     store.dispatch(deleteMessageError(error));
   });
 };

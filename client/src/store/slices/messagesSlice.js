@@ -57,7 +57,7 @@ const messagesSlice = createSlice({
       state.error = payload;
     },
     deleteMessageSuccess: (state, { payload }) => {
-      state.messages = state.messages.filter(m => m._id !== payload);
+      state.messages = state.messages.filter(m => m._id !== payload.messageId);
     },
     deleteMessageError: (state, { payload }) => {
       state.error = payload;
